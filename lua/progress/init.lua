@@ -56,12 +56,13 @@ function M.progress_progressive(key, title, opts)
     begin = function(msg)
       data.last_message = msg
       data.last_level = vim.log.levels.INFO
-      data.notification = vim.notify(msg, vim.log.levels.INFO, {
-        title = title,
-        icon = spinner_frames[1],
-        timeout = false,
-        hide_from_history = true,
-      })
+      -- aparently this is causing trouble
+      -- data.notification = vim.notify(msg, vim.log.levels.INFO, {
+      --   title = title,
+      --   icon = spinner_frames[1],
+      --   timeout = false,
+      --   hide_from_history = true,
+      -- })
       data.spinner = 1
 
       vim.defer_fn(function()
