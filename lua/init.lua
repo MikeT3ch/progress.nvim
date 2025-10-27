@@ -1,5 +1,6 @@
 -- uses vim.notify = require('notify')
 local M = {}
+local progress
 
 local config = {
   default_frames = { "🔴", "🟠", "🟡", "🟢", "🔵", "🟣", "🟤", "⚫" },
@@ -90,4 +91,5 @@ function M.progress_progressive(key, title, opts)
   }
 end
 
-return M
+progress = M
+return progress
