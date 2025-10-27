@@ -63,16 +63,29 @@ function M.progress_progressive(key, title, opts)
       })
       data.spinner = 1
 
-      -- Esperar antes de empezar a actualizar
       vim.defer_fn(function()
         update_spinner(key)
       end, speed)
     end,
-    report = function()
-
+    report = function(msg, level)
+      level = level or vim.log.levels.INFO
+      data.last_message = msg
+      data.last_level = level
     end,
-    done = function()
-
+    done = function(msg, level)
+      data.spinner = nil
+      level = level or vim.log.levels.INFO
+      data.notification = vim.notify(msg, level, {
+        icon = level == vim.log.levels.ERROR and "❌" or "✅",
+        replace = data.notification,
+        timeout = 3000,
+        title = title,
+        hide_from_history = false,
+      })
+      data.last_message = nil
+      data.last_level = nil
+      data.spinner_frames = nil
+      data.speed = nil
     end
   }
 end
