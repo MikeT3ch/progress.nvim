@@ -7,7 +7,12 @@ local config = {
 }
 
 function M.setup(opts)
-  config = vim.tbl_extend("force", config, opts or {}) -- dont know how to deal with vim. stuff
+  config = vim.tbl_extend("force", config, opts or {}) -- dont know how to deal with vim.thing stuff
+end
+
+function M.notif_static(msg, level, opts)
+  opts = opts or {}
+  vim.notify(msg, level or vim.log.levels.INFO, opts)
 end
 
 local notif_data = {}
@@ -36,3 +41,6 @@ local function update_spinner(key)
     end, data.speed or config.default_speed)
   end
 end
+
+
+return M
