@@ -1,3 +1,4 @@
+-- uses vim.notify = require('notify')
 local M = {}
 
 local config = {
@@ -16,4 +17,22 @@ local function get_notif_data(key)
     notif_data[key] = {}
   end
   return notif_data[key]
+end
+
+local function update_spinner(key)
+  local data = get_notif_data(key)
+  if data.spinner and data.spinner_frames then
+    local new_spinner = (data.spinner % #data.spinner_frames) + 1
+    data.spinner = new_spinner
+    data.notification = vim.notify(data.last_message or "", data.last_level or vim.log.levels.INFO, {
+      icon = data.spinner_frames[new_spinner],
+      replace = data.notification,
+      hide_from_history = true,
+      timeout = false,
+      title = data.title,
+    })
+    vim.defer_fn(function()
+      update_spinner(key)
+    end, data.speed or config.default_speed)
+  end
 end
