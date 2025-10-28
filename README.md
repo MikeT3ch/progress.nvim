@@ -8,6 +8,9 @@ Utility built around nvim-notify, send notifications more simple and easy
 JUST LUA CODE AND PRAYERS
 
 put gif here:
+gif
+
+## HOW TO USE:
 
 
 

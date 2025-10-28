@@ -1,9 +1,10 @@
 -- uses vim.notify = require('notify')
 local M = {}
-local progress
+local spinners = require("progress.spinners")
+M.spinners = spinners
 
 local config = {
-  default_frames = { "🔴", "🟠", "🟡", "🟢", "🔵", "🟣", "🟤", "⚫" },
+  default_frames = spinners.color,
   default_speed = 150
 }
 
@@ -56,24 +57,22 @@ function M.progress_progressive(key, title, opts)
     begin = function(msg)
       data.last_message = msg
       data.last_level = vim.log.levels.INFO
-      -- aparently this is causing trouble
-      -- data.notification = vim.notify(msg, vim.log.levels.INFO, {
-      --   title = title,
-      --   icon = spinner_frames[1],
-      --   timeout = false,
-      --   hide_from_history = true,
-      -- })
       data.spinner = 1
-
       vim.defer_fn(function()
         update_spinner(key)
       end, speed)
     end,
+
     report = function(msg, level)
       level = level or vim.log.levels.INFO
       data.last_message = msg
       data.last_level = level
+      data.spinner = 1
+      vim.defer_fn(function()
+        update_spinner(key)
+      end, speed)
     end,
+
     done = function(msg, level)
       data.spinner = nil
       level = level or vim.log.levels.INFO
@@ -92,5 +91,4 @@ function M.progress_progressive(key, title, opts)
   }
 end
 
-progress = M
-return progress
+return M
