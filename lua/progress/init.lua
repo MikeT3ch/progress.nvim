@@ -12,7 +12,7 @@ function M.setup(opts)
   config = vim.tbl_extend("force", config, opts or {}) -- dont know how to deal with vim.thing stuff
 end
 
-function M.progress_static(msg, level, opts)
+function M.static(msg, level, opts)
   opts = opts or {}
   vim.notify(msg, level or vim.log.levels.INFO, opts)
 end
