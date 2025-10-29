@@ -23,7 +23,7 @@ local level = vim.log.levels.WARN
 local custom_options = {speed = 100}
 progress.static("First the message", level, custom_options)
 ```
-![First notification](common/gifs/Process.gif) 
+![First notification](./common/gifs/Progress1.gif) 
 
 END OF THE README. BYE
 
