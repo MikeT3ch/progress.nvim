@@ -46,8 +46,10 @@ Progressive have 3 principal "functions":
 - .begin
 - .report
 - .done
+
 You can use .begin to send the first notification to the screen, then .report to update the state of the same notification, and .done when you want to end the notification.
 Here are some examples:
+
 ```lua
 vim.notify = require("notify")
 local prog = require("progress")
