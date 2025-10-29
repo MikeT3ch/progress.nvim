@@ -1,25 +1,36 @@
 # progress.nvim
-Utility built around nvim-notify, send notifications more simple and easy
+Utility built around [nvim-notify](https://github.com/rcarriga/nvim-notify) and [this example](https://github.com/rcarriga/nvim-notify/wiki/Usage-Recipes) in their wiki, send notifications more simple and easy
 
 - NO TESTING
 - NO BENCHMARKING
-- NO DOCS
+- NO DOCS (kinda)
 
-JUST LUA CODE AND PRAYERS
+JUST LUA CODE AND PRAYERS, I STRONGLY RECOMMEND YOU TO READ AND USE [THIS EXAMPLE](https://github.com/rcarriga/nvim-notify/wiki/Usage-Recipes) IF YOU WANT TO USE ONLY THE NVIM-NOTIFY PLUGIN, THIS IS ONLY AN AUXILIAR TOOL 
 
 ## HOW TO INSTALL:
 Lazy: Add to your plugins table
 ```lua
-{'MikeT3ch/progress.nvim'}
+{
+  'MikeT3ch/progress.nvim', 
+  dependencies = { 'rcarriga/nvim-notify' }
+}
 ```
 
 Locally with Lazy too:
 ```lua
-{ 'MikeT3ch/progress.nvim', dir = "/path/to/progress.nvim" },
+{ 
+  'MikeT3ch/progress.nvim', 
+  dependencies = { 'rcarriga/nvim-notify' },
+  dir = "/path/to/progress.nvim" 
+}
 ```
 
 ## HOW TO USE:
 The utility have 2 types of notifications, static and progressive. 
+These examples assume that you have set nvim-notify as your vim.notify handler:
+```lua
+vim.notify = require("notify")
+```
 
 ### Statics Notifications
 
@@ -65,6 +76,32 @@ vim.defer_fn(function()
 end, 5000)
 ```
 ![Progressive Notification](./common/gifs/Progressive1.gif) 
+
+```lua
+vim.notify = require("notify")
+local prog = require("progress")
+
+-- CUSTOM SPINNERS TOO!!!!!
+local custom_spinner = prog.spinners.material
+local notif2 = prog.progress_progressive("Test_window", "Test Title",
+  { speed = 100, spinner = custom_spinner })
+
+notif2.begin('Hiiiiiiiiiii...')
+
+vim.defer_fn(function()
+  vim.defer_fn(function()
+    notif2.report('Warning! ...', vim.log.levels.WARN)
+  end, 1000)
+
+  vim.defer_fn(function()
+    notif2.done('All done!...')
+  end, 3000)
+end, 1000)
+```
+![Progressive Notification with custom spinner](./common/gifs/Progressive2.gif) 
+
+You can see the built in spinners [here](./lua/progress/spinners.lua) 
+
 
 END OF THE README. BYE
 
