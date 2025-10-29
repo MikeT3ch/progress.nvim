@@ -4,7 +4,7 @@ local spinners = require("progress.spinners")
 M.spinners = spinners
 
 local config = {
-  default_frames = spinners.color,
+  default_frames = spinners.emojis_color,
   default_speed = 150
 }
 
@@ -91,4 +91,5 @@ function M.progress_progressive(key, title, opts)
   }
 end
 
-return M
+local progress = M
+return progress
